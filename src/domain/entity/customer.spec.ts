@@ -50,4 +50,15 @@ describe("Customer unit tests", () => {
     }).toThrow("O endereço é obrigatório para a ativação do cliente");
   });
 
+  it ("Should add reward points", () => {
+    const customer = new Customer("1", "Pricesa Zelda");
+    expect(customer.rewardPoints).toBe(0);
+
+    customer.addRewardPoints(10);
+    expect(customer.rewardPoints).toBe(10);
+
+    customer.addRewardPoints(10);
+    expect(customer.rewardPoints).toBe(20);
+  });
+
 });

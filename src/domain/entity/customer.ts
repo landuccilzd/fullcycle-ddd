@@ -6,6 +6,7 @@ export default class Customer {
     _name: string;
     _address!: Address;
     _active: boolean = false;
+    _rewardPoints: number = 0;
 
     constructor(id: string, name: string) {
         this._id = id;
@@ -21,10 +22,22 @@ export default class Customer {
         if (this._name.length === 0) {
             throw new Error("O nome é obrigatório");
         }
+
+        if (this._rewardPoints < 0) {
+            throw new Error("Os pontos de recompensa não podem ser negativos");
+        }        
+    }
+
+    get id(): string {
+        return this._id;
     }
 
     get name(): string {
         return this._name;
+    }
+
+    get rewardPoints(): number {
+        return this._rewardPoints
     }
 
     isActive(): boolean {
@@ -34,6 +47,10 @@ export default class Customer {
     changeName(name: string) {
         this._name = name;
         this.validate();
+    }
+
+    addRewardPoints(rewardPoint: number) {
+        this._rewardPoints += rewardPoint;
     }
 
     activate() {
