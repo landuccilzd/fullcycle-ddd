@@ -29,7 +29,7 @@ describe("Customer unit tests", () => {
     const customer = new Customer("1", "Princeza Zelda");
     const address = new Address("Castelo de Hyrule", 123, "86020-000", "Hyrule");
 
-    customer.Address = address;
+    customer.changeAddress(address);
     customer.activate();
 
     expect(customer.isActive()).toBe(true);

@@ -27,6 +27,27 @@ export default class Order {
         }        
     }
 
+    get id(): string {
+        return this._id
+    }
+
+    get customerId(): string {
+        return this._customerId;
+    }
+
+    get items(): OrderItem[] {
+        return this._items;
+    }
+
+    changeCustomerId(customerId: string) {
+        this._customerId = customerId;
+        this.validate();        
+    }
+
+    addItem(item: OrderItem) {
+        this._items.push(item);
+    }
+
     total(): number {
         return this._items.reduce((acc, item) => acc + item.orderItemTotal(), 0);
     }
