@@ -73,4 +73,7 @@ export default class Customer {
         this._active = false;
     }
 
+    toString() {
+        return "[" + this._id + "] " + this._name;
+    }
 }

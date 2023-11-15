@@ -86,14 +86,6 @@ describe("Customer repository unit test", () => {
 
         const foundCustomer = await customerRepository.find("1");
         expect(customer).toStrictEqual(foundCustomer)
-        // expect(foundCustomer.id).toBe("1");
-        // expect(foundCustomer.name).toBe(customer.name);
-        // expect(foundCustomer.address.street).toBe(address.street);
-        // expect(foundCustomer.address.number).toBe(address.number);
-        // expect(foundCustomer.address.zip).toBe(address.zip);
-        // expect(foundCustomer.address.city).toBe(address.city);
-        // expect(foundCustomer.isActive()).toBe(customer.isActive());
-        // expect(foundCustomer.rewardPoints).toBe(customer.rewardPoints);
     });
 
     it ("Should throw an error when customer is not found", async () => {
