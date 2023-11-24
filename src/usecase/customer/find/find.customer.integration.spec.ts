@@ -1,9 +1,10 @@
 import { Sequelize } from "sequelize-typescript";
-import CustomerModel from "../../../infrastructure/db/sequelize/model/customer.model";
-import CustomerRepository from "../../../infrastructure/repository/customer.repository";
-import Customer from "../../../domain/entity/customer";
-import Address from "../../../domain/entity/address";
+
 import FindCustomerUseCase from "./find.customer.usecase";
+import CustomerModel from "../../../infrastructure/customer/repository/sequelize/customer.model";
+import CustomerRepository from "../../../infrastructure/customer/repository/customer.repository";
+import Customer from "../../../domain/customer/entity/customer";
+import Address from "../../../domain/customer/value-object/address";
 
 
 describe("Test find customer use case", () => {
@@ -18,7 +19,7 @@ describe("Test find customer use case", () => {
             sync: { force: true }
         });
     
-        await sequelize.addModels([CustomerModel]);
+        sequelize.addModels([CustomerModel]);
         await sequelize.sync();
     });
 

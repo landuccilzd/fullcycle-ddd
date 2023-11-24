@@ -1,6 +1,5 @@
-import Product from "../../../domain/entity/product";
+import Product from "../../../domain/product/entity/product";
 import UpdateProductUseCase from "./update.product.usecase";
-
 
 const product = new Product("1", "Master Sword", 5000);
 
