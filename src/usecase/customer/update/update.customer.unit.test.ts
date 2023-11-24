@@ -1,5 +1,5 @@
-import Address from "../../../domain/entity/address";
-import Customer from "../../../domain/entity/customer";
+import Customer from "../../../domain/customer/entity/customer";
+import Address from "../../../domain/customer/value-object/address";
 import UpdateCustomerUseCase from "./update.customer.usecase";
 
 const customer = new Customer("1", "Princesa Zelda");

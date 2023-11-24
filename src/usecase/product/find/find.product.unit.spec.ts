@@ -1,4 +1,4 @@
-import Product from "../../../domain/entity/product";
+import Product from "../../../domain/product/entity/product";
 import FindProductUseCase from "./find.product.usecase";
 
 const product = new Product("1", "Master Sword", 5000);
