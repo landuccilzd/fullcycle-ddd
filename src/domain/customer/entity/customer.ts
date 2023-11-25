@@ -1,35 +1,47 @@
+import AbstractEntity from "../../@shared/entity/abstract.entity";
+import NotificationError from "../../@shared/notification/notification.error";
 import Address from "../value-object/address";
 
-export default class Customer {
+export default class Customer extends AbstractEntity {
 
-    private _id: string;
     private _name: string;
     private _address!: Address;
     private _active: boolean = false;
     private _rewardPoints: number = 0;
 
     constructor(id: string, name: string) {
+        super();
         this._id = id;
         this._name = name;
         this.validate();
     }
 
     validate() {
+
         if (this._id.length === 0) {
-            throw new Error("O ID é obrigatório");
+            this.notification.addError({
+                context: "Customer",
+                message: "O ID é obrigatório"
+            });
         }
 
         if (this._name.length === 0) {
-            throw new Error("O nome é obrigatório");
+            this.notification.addError({
+                context: "Customer",
+                message: "O nome é obrigatório"
+            });
         }
 
         if (this._rewardPoints < 0) {
-            throw new Error("Os pontos de recompensa não podem ser negativos");
-        }        
-    }
+            this.notification.addError({
+                context: "Customer",
+                message: "Os pontos de recompensa não podem ser negativos"
+            });
+        }
 
-    get id(): string {
-        return this._id;
+        if (this.notification.hasErrors()) {
+            throw new NotificationError(this.notification.errors)
+        }
     }
 
     get name(): string {
@@ -51,6 +63,9 @@ export default class Customer {
     changeName(name: string) {
         this._name = name;
         this.validate();
+        // if (this.notification.hasErrors()) {
+        //     throw new NotificationError(this.notification.errors)
+        // }        
     }
 
     changeAddress(address: Address) {
@@ -74,6 +89,6 @@ export default class Customer {
     }
 
     toString() {
-        return "[" + this._id + "] " + this._name;
+        return "[" + this.id + "] " + this._name;
     }
 }

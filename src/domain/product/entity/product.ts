@@ -1,12 +1,14 @@
+import AbstractEntity from "../../@shared/entity/abstract.entity";
+import NotificationError from "../../@shared/notification/notification.error";
 import ProductInterface from "./product.interface";
 
-export default class Product implements ProductInterface {
+export default class Product extends AbstractEntity implements ProductInterface {
 
-    private _id: string;
     private _name: string;
     private _price: number;
     
     constructor (id: string, name: string, price: number) {
+        super();
         this._id = id;
         this._name = name;
         this._price = price;
@@ -15,20 +17,29 @@ export default class Product implements ProductInterface {
 
     validate() {
         if (this._id.length === 0) {
-            throw new Error("O ID é obrigatório");
+            this.notification.addError({
+                context: "Product",
+                message: "O ID é obrigatório"
+            });
         }
 
         if (this._name.length === 0) {
-            throw new Error("O Nome é obrigatório");
+            this.notification.addError({
+                context: "Product",
+                message: "O Nome é obrigatório"
+            });            
         }
 
         if (this._price < 0) {
-            throw new Error("O Preço é obrigatório");
+            this.notification.addError({
+                context: "Product",
+                message: "O Preço é obrigatório"
+            });
         }
-    }
 
-    get id(): string {
-        return this._id;
+        if (this.notification.hasErrors()) {
+            throw new NotificationError(this.notification.errors)
+        }
     }
 
     get name(): string {
@@ -46,6 +57,6 @@ export default class Product implements ProductInterface {
 
     changePrice(price: number) {
         this._price = price;
-        this.validate();
+        this.validate();    
     }
 }

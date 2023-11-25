@@ -38,13 +38,13 @@ describe("Unit test for update customer use case", () => {
     });
     
 
-    it("Should throw an error when name is missing and not create a customer", async () => {
+    it("Should throw an error when name is missing and not update a customer", async () => {
         const customerRepository = MockRepository();
         const customerUpdateUseCase = new UpdateCustomerUseCase(customerRepository);
 
         input.name = "";
 
-        await expect(customerUpdateUseCase.execute(input)).rejects.toThrow("O nome é obrigatório");
+        await expect(customerUpdateUseCase.execute(input)).rejects.toThrow("Customer: O nome é obrigatório");
     });
 
     it("Should throw an error when street is missing and not create a customer", async () => {
