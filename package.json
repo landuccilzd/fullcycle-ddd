@@ -12,6 +12,7 @@
     "typescript": "^5.3.2"
   },
   "scripts": {
+    "clearTests": "jest --clearCache",
     "test": "jest",
     "dev": "nodemon src/infrastructure/api/server.ts"
   },

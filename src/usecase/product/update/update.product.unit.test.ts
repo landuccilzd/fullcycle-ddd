@@ -25,28 +25,27 @@ describe("Unit test for update product use case", () => {
         const updateProductUseCase = new UpdateProductUseCase(repository);
 
         const output = await updateProductUseCase.execute(input);
-
         expect(output).toEqual(input);
     });
     
-
     it("Should throw an error when name is missing and not update a product", async () => {
         const repository = MockRepository();
         const updateProductUseCase = new UpdateProductUseCase(repository);
 
         input.name = "";
 
-        await expect(updateProductUseCase.execute(input)).rejects.toThrow("O Nome é obrigatório");
+        await expect(updateProductUseCase.execute(input)).rejects.toThrow("Product: O Nome é obrigatório");
     });
 
     it("Should throw an error when price is lower or equal zero and not update a product", async () => {
         const repository = MockRepository();
         const updateProductUseCase = new UpdateProductUseCase(repository);
 
-        input.name = "Hylian Shield";
+        input.name = "Master Sword";
         input.price = -1;
 
-        await expect(updateProductUseCase.execute(input)).rejects.toThrow("O Preço é obrigatório");
-    });    
+        await expect(updateProductUseCase.execute(input)).rejects.toThrow("Product: O Nome é obrigatório");
+    });
+
 
 });
