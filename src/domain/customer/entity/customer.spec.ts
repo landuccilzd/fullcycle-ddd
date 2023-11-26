@@ -56,6 +56,38 @@ describe("Customer unit tests", () => {
     }).toThrow("O endereço é obrigatório para a ativação do cliente");
   });
 
+  it("should throw error when street is empty", () => {
+    expect(() => {
+      const customer = new Customer("1", "Princeza Zelda");
+      const address = new Address("", 123, "86020-000", "Hyrule");  
+      customer.changeAddress(address);
+    }).toThrow("Address: A rua é obrigatória");
+  });
+
+  it("should throw error when number is empty", () => {
+    expect(() => {
+      const customer = new Customer("1", "Princeza Zelda");
+      const address = new Address("Catelo de Hyrule", null, "86020-000", "Hyrule");  
+      customer.changeAddress(address);
+    }).toThrow("Address: O número é obrigatório");
+  });
+
+  it("should throw error when zip is empty", () => {
+    expect(() => {
+      const customer = new Customer("1", "Princeza Zelda");
+      const address = new Address("Catelo de Hyrule", 10, "", "Hyrule");  
+      customer.changeAddress(address);
+    }).toThrow("Address: O cep é obrigatório");
+  });  
+
+  it("should throw error when city is empty", () => {
+    expect(() => {
+      const customer = new Customer("1", "Princeza Zelda");
+      const address = new Address("Catelo de Hyrule", 10, "86020-000", "");
+      customer.changeAddress(address);
+    }).toThrow("Address: A cidade é obrigatória");
+  });
+
   it ("Should add reward points", () => {
     const customer = new Customer("1", "Pricesa Zelda");
     expect(customer.rewardPoints).toBe(0);
