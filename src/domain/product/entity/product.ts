@@ -1,5 +1,6 @@
 import AbstractEntity from "../../@shared/entity/abstract.entity";
 import NotificationError from "../../@shared/notification/notification.error";
+import ProductValidatorFactory from "../factory/product.validator.factory";
 import ProductInterface from "./product.interface";
 
 export default class Product extends AbstractEntity implements ProductInterface {
@@ -16,27 +17,7 @@ export default class Product extends AbstractEntity implements ProductInterface 
     }
 
     validate() {
-        if (this._id.length === 0) {
-            this.notification.addError({
-                context: "Product",
-                message: "O ID é obrigatório"
-            });
-        }
-
-        if (this._name.length === 0) {
-            this.notification.addError({
-                context: "Product",
-                message: "O Nome é obrigatório"
-            });            
-        }
-
-        if (this._price < 0) {
-            this.notification.addError({
-                context: "Product",
-                message: "O Preço é obrigatório"
-            });
-        }
-
+        ProductValidatorFactory.create().validate(this);
         if (this.notification.hasErrors()) {
             throw new NotificationError(this.notification.errors)
         }

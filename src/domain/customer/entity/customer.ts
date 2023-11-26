@@ -1,5 +1,6 @@
 import AbstractEntity from "../../@shared/entity/abstract.entity";
 import NotificationError from "../../@shared/notification/notification.error";
+import CustomerValidatorFactory from "../factory/customer.validator.factory";
 import Address from "../value-object/address";
 
 export default class Customer extends AbstractEntity {
@@ -17,28 +18,7 @@ export default class Customer extends AbstractEntity {
     }
 
     validate() {
-
-        if (this._id.length === 0) {
-            this.notification.addError({
-                context: "Customer",
-                message: "O ID é obrigatório"
-            });
-        }
-
-        if (this._name.length === 0) {
-            this.notification.addError({
-                context: "Customer",
-                message: "O nome é obrigatório"
-            });
-        }
-
-        if (this._rewardPoints < 0) {
-            this.notification.addError({
-                context: "Customer",
-                message: "Os pontos de recompensa não podem ser negativos"
-            });
-        }
-
+        CustomerValidatorFactory.create().validate(this);
         if (this.notification.hasErrors()) {
             throw new NotificationError(this.notification.errors)
         }
@@ -63,9 +43,6 @@ export default class Customer extends AbstractEntity {
     changeName(name: string) {
         this._name = name;
         this.validate();
-        // if (this.notification.hasErrors()) {
-        //     throw new NotificationError(this.notification.errors)
-        // }        
     }
 
     changeAddress(address: Address) {
@@ -80,7 +57,6 @@ export default class Customer extends AbstractEntity {
         if (this._address === undefined) {
             throw Error("O endereço é obrigatório para a ativação do cliente")
         }
-
         this._active = true;
     }
 
