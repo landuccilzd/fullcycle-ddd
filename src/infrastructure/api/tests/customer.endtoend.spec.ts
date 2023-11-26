@@ -80,5 +80,30 @@ describe("End to end tests for customer", () => {
         const link = responseList.body.customers[1];
         expect(link.name).toBe("Link");
         expect(link.address.street).toBe("Casa da Colina");
+
+        const listXml = await request(app).get("/customer").set("Accept", "application/xml").send();
+        expect(listXml.status).toBe(200);
+        expect(listXml.text).toContain(`<?xml version="1.0" encoding="UTF-8"?>`);
+        expect(listXml.text).toContain(`<customers>`);
+        expect(listXml.text).toContain(`<customer>`);
+        expect(listXml.text).toContain(`<name>Princesa Zelda</name>`);
+        expect(listXml.text).toContain(`<address>`);
+        expect(listXml.text).toContain(`<street>Castelo de Hyrule</street>`);
+        expect(listXml.text).toContain(`<number>10</number>`);
+        expect(listXml.text).toContain(`<zip>86020-000</zip>`);
+        expect(listXml.text).toContain(`<city>Hyrule</city>`);
+        expect(listXml.text).toContain(`</address>`);
+        expect(listXml.text).toContain(`</customer>`);
+        expect(listXml.text).toContain(`<customer>`);
+        expect(listXml.text).toContain(`<name>Link</name>`);
+        expect(listXml.text).toContain(`<address>`);
+        expect(listXml.text).toContain(`<street>Casa da Colina</street>`);
+        expect(listXml.text).toContain(`<number>7</number>`);
+        expect(listXml.text).toContain(`<zip>86020-010</zip>`);
+        expect(listXml.text).toContain(`<city>Haetano Village</city>`);
+        expect(listXml.text).toContain(`</address>`);
+        expect(listXml.text).toContain(`</customer>`);        
+        expect(listXml.text).toContain(`</customers>`);
+
     });        
 });
